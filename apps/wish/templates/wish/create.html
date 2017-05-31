@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wishes!</title>
+	{% load staticfiles %}
+	<!-- The line above tells Django to be ready to listen for static files -->
+	<link rel="stylesheet" href="{% static 'css/index.css' %}"media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+	<h1>Create a New Wish Item</h1>
+	<form action="{% url 'wish:add' %}" method="post">
+		{% csrf_token %}
+		Item/Product: <input type="text" name="wish">
+		<input type="submit" name="add" value="Add">
+	</form>
+	{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+				<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+					{{ message }}
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	<a href="/wish">Home</a>
+	<a href="{% url 'login:logout' %}">Logout</a>
+	
+	
+
+	<!-- <form >
+		
+		<textarea class="wish_box" name="content" placeholder="Your text here..."></textarea>
+		<input type="submit" name="post" value="Post">
+	</form>
+	{% for wish in wishes %}
+		<p>{{ wish.user.name }} said:<br>{{ wish.content }} {{ wish.created_at }} 
+		wishs:{{ wish.likes }}
+		<a href="/wishs/like/{{ wish.id }}">Like</a></p> -->
+		<!-- <p>wish id: {{ wish.id }}</p> -->
+		<!-- {% if wish.user.id == request.session.id %}
+			<p>You posted this <a href="/wishs/deletepost/{{ wish.id }}">Delete</a></p>
+		{% endif %}
+	{% endfor %} -->
+	
+</body>
+</html>
